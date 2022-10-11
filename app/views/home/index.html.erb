@@ -19,15 +19,41 @@
   <button class="btn btn-primary d-none d-lg-block"><i class="fa-solid fa-magnifying-glass rounded d-none d-lg-block"></i></button>
  
   <div class="ms-md-5 mt-2 mt-md-0">
-    <a type="button" class="btn btn-outline-primary fw-500 rounded ">
-      <i class="fa-solid fa-user me-lg-2"></i><p class="d-none d-lg-inline">Sign in</p>
+    <% if user_signed_in? %>
+    <a href="/users/sign_out" type="button" class="btn btn-outline-primary fw-500 rounded">
+      <i class="fa-solid fa-sign-in me-lg-2"></i><p class="d-none d-lg-inline">Logout</p>
     </a>
-    <a type="button" class="btn btn-outline-primary fw-500 rounded">
+
+
+<a type="button" class="btn btn-outline-primary fw-500 rounded ">
+      <i class="fa-solid fa-cart-shopping me-lg-2"></i><p class="d-none d-lg-inline">My Cart</p>
+
+
+
+      <% if current_user.has_role? :admin %>
+    <a type="button" class="btn btn-outline-primary fw-500 rounded  user">
+    <i class="fa fa-user"></i>
+    <p class="d-none d-lg-inline">
+     <%= current_user.roles[0].name.capitalize %></p><div class="vr space "></div>
+      <%= current_user.name %>
+   </a>
+   <% else %>
+   <a href="/users/sign_out" type="button" class="btn btn-outline-primary fw-500 rounded user">
+      <i class="fa-solid fa-user me-lg-2"></i><p class="d-none d-lg-inline"><%= current_user.roles[0].name.capitalize %> | <%= current_user.name %></p>
+    </a>
+    <% end %>
+
+    <% else %>
+    <a href="/users/sign_up" type="button" class="btn btn-outline-primary fw-500 rounded">
       <i class="fa-solid fa-sign-in me-lg-2"></i><p class="d-none d-lg-inline">Sign up</p>
     </a>
-    <a type="button" class="btn btn-outline-primary fw-500 rounded ">
-      <i class="fa-solid fa-cart-shopping me-lg-2"></i><p class="d-none d-lg-inline">My Cart</p>
+    <a href="/users/sign_in" type="button" class="btn btn-outline-primary fw-500 rounded ">
+      <i class="fa-solid fa-user me-lg-2"></i><p class="d-none d-lg-inline">Sign in</p>
     </a>
+    <a type="button" class="btn btn-outline-primary fw-500 rounded ">
+      <i class="fa-solid fa-cart-shopping me-lg-2"></i><p class="d-none d-lg-inline">My Cart</p></a>
+    <% end %>
+
     </div>
   
   <ul class="dropdown-menu  dropdown-menu-start">
