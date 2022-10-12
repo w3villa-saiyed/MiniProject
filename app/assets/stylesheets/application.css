@@ -85,5 +85,13 @@
 .user{
   margin: inherit;
 }
-
+.collection{
+  margin-top: 30px ;
+}
+.tick{
+  padding: 10px;
+  color: green;
+  background-color: green;
+  font-size: 30px;
+}
 /*/*/ 

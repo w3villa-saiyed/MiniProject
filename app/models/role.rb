@@ -1,5 +1,6 @@
 class Role < ApplicationRecord
   has_and_belongs_to_many :users, :join_table => :users_roles
+
   
   belongs_to :resource,
              :polymorphic => true,
@@ -11,4 +12,7 @@ class Role < ApplicationRecord
             :allow_nil => true
 
   scopify
+  params = { member: { users_attributes: { } } }
+   accepts_nested_attributes_for :users
+
 end

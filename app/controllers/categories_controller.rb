@@ -1,9 +1,12 @@
 class CategoriesController < ApplicationController
+  before_action :auth
   before_action :set_category, only: %i[ show edit update destroy ]
+
 
   # GET /categories or /categories.json
   def index
-    @categories = Category.all
+   
+    
   end
 
   # GET /categories/1 or /categories/1.json
@@ -66,5 +69,15 @@ class CategoriesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def category_params
       params.require(:category).permit(:category)
+    end
+    def auth
+      if current_user&.has_role?('admin')
+      @categories = Category.all
+    elsif current_user&.has_role?('bidder')
+      redirect_to '/'
+    end
+    if current_user&.has_role?('seller')
+      redirect_to '/'
+    end
     end
 end
